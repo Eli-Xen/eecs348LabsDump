@@ -1,3 +1,9 @@
+// Author: Eliza Malyshev 
+// KUID: 3122318
+// Date: 10/3/2024 
+// Lab: #5.2
+// Purpose: display different weather warnings based on temperature 
+
 #include <stdio.h>
 int main()
 {
