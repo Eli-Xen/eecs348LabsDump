@@ -8,8 +8,26 @@
 int main()
 {
     int temp; 
-    printf("give temp in Celcius, give an integer: "); 
+    int tempType; 
+    printf("1 celcius \n2 kelvin \n3 farenheight\ninput an integer for coresponding tempterature: ");
+    scanf("%d", &tempType);
+    printf("give temp as integer: "); 
     scanf("%d", &temp); //saves to address of temparture variable 
+    switch(tempType) //like if-else statment except it just finds what the variable given is equal to 
+    { //this converts whatevery they gave us (C/K/F) into celcius 
+        case 1: 
+            temp=temp; 
+            break; //we do nothing since we are aledy in Kelvin
+        case 2:
+            temp=temp-273.15; 
+            break; 
+        case 3: 
+            temp=(temp-32)*(5.0/9.0); //(°F - 32) × 5/9 formula to convert farenheight to celcius 
+            break; 
+        default: //if nothing else mathces to the variable given (like the last else statement)
+            printf("you gave bad input when we asked Celcius, kelvin or farenheight\n");
+    }
+
     if(temp<0)
     {
         printf("freezing:wear a thick jacket if you go out");
@@ -34,4 +52,6 @@ int main()
     {
         printf("invalid input");
     }
+
+    return 0; 
 }

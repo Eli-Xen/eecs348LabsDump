@@ -58,4 +58,6 @@ int main()
         // array=comb(score); //passes score so that comb can find all combinations 
         // free(array); //frees space that array was allocating so that we dont cause memory leak 
     }
+
+    return 0; 
 }
