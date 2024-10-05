@@ -1,62 +1,158 @@
 // Author: Eliza Malyshev 
 // KUID: 3122318
-// Date: 10/3/2024 
-// Lab: #5.1
-// Purpose: find NFL scoring combinations using C
+// Date: 10/4/2024 
+// Lab: #4.2
+// Purpose: display different weather warnings based on temperature 
 
 #include <stdio.h>
-// int* comb(int score)
-// {
-//     int* arr=(int*)malloc(6*sizeof(int)); //according to example we only need 6 numbers for output so alocate enough space for 6 ints
-//     printf(score); //do stuff to fill array, maybe do 2d array for all combinations 
-//     return arr; //return pointer to array 
-// }
 
-int comb(int score) //this function will try all combinations and will print the combinations that equal the score 
+//all of these are functions to convert between different temperature types 
+float c2f(float celsius) 
 {
-    int td2, td1, td, fg, sfty; //initializes varibles for touchdown+2/+1+0, feild goal and saftey 
-    printf("combinations of scoring %d\n", score); 
-    for (td2=0; td2*8<=score; td2++) //this will add 8*i every time it loops until it surpasses the score 
+    return (celsius*9.0/5.0)+32;
+}
+float f2c(float fahrenheit) 
+{
+    return (fahrenheit-32)*5.0/9.0;
+}
+float c2k(float celsius) 
+{
+    return celsius+273.15;
+}
+float k2c(float kelvin) 
+{
+    return kelvin-273.15;
+}
+
+int typeTemp() //this will ge tthe kind of temperature the user will input, it will trap them in a loop until they give valid input 
+{
+    int tempType;
+    do 
     {
-        for (td1=0; (td2*8+td1*7)<=score; td1++) //not it does 8*i+7*j so that every time it loops it tries adding different incriments 
+        printf("1 celcius \n2 kelvin \n3 farenheight\ninput an integer for coresponding tempterature: ");
+        scanf("%d", &tempType);
+        if(tempType<1 || tempType>3)
         {
-            for (td=0; (td2*8+td1*7+td*6)<=score; td++) //we keep adding other types of goals with thier point amounts...
-            {
-                for (fg=0; (td2*8+td1*7+td*6+fg*3)<=score; fg++) //...so that each is incrimented by the loop they are at...
-                {
-                    for (sfty=0; (td2*8+td1*7+td*6+fg*3+sfty*2)<=score; sfty++) //...until the addition of all the incriments surpasses or equals the score 
-                    {
-                        if ((td2*8+td1*7+td*6+fg*3+sfty*2)==score) //if this combination equals the score then print it 
-                        {
-                            printf("%d TD+2pt, %d TD+FG, %d TD, %d FG 3pt, %d Saftey 2pt\n", td2, td1, td, fg, sfty); 
-                        }
-                    }
-                }
-            }
+            printf("bad input enter integers 1-3 for corresponding temperature types\n");
         }
+    } while(tempType<1 || tempType>3);
+    return tempType;
+}
+
+float getTemp(int tempType) //this will get the temperature the user will input, it will trap them in a loop until they give valid input 
+{
+    float temp;
+    do 
+    {
+        printf("give temperature: ");
+        scanf("%f", &temp);
+        if(tempType==2 && temp<0) 
+        {
+            printf("kelvin cant be negative\n");
+        }
+    } while(tempType==2 && temp<0);
+    return temp;
+}
+
+int convertType() //this will get the kind of temperature the user wants to convert to, it will trap them in a loop until they give valid input 
+{
+    int tempConvert;
+    do 
+    {
+        printf("1 celcius \n2 kelvin \n3 farenheight\ninput an integer for what you want to convert to: ");
+        scanf("%d", &tempConvert);
+        if(tempConvert<1 || tempConvert>3)
+        {
+            printf("bad input enter integers 1-3 for corresponding temperature types\n");
+        }
+    } while(tempConvert<1 || tempConvert>3);
+    return tempConvert;
+}
+
+void categorize(float temp) //this will categorize the temparture and give a weather suggestion based on the temperature 
+{
+    if(temp<0)
+    {
+        printf("freezing: wear a thick jacket if you go out \n");
+    }
+    else if(temp>=0 && temp<10) //has to be seperate statments or else it just reads that num>=10000 is 0 or 1 and compares that to 26000 (if dont 10000<=num<26000)
+    {  
+        printf("cold: wear a sweater or long sleeves \n");
+    }
+    else if(temp>=10 && temp<25)
+    {  
+        printf("comfortable: its good weather out \n");
+    }
+    else if(temp>=25 && temp<35)
+    {  
+        printf("hot: wear short sleeves and sunscreen \n");
+    }
+    else if(temp>=35)
+    {  
+        printf("extreme heat: avoid going outdoors \n");
     }
 }
 
-int main()
+int main() 
 {
-    int score; 
-    while(1)
-    {
-        printf("enter 1 or 0 to stop\n"); 
-        printf("enter NFL score integer: ");
-        scanf("%d", &score); //saves score to address of variable 
-        if(score<=1)
-        {
+    float temp; //tempearture 
+    int tempType; //the type of temperature user will give 
+    int tempConvert; //what the user wants to convert to 
+    //calls supporting functions to get user input and force to give valid input 
+    tempType=typeTemp(); 
+    temp=getTemp(tempType);
+    tempConvert=convertType();
+    
+    switch(tempType) //this converts whatevery they gave us (C/K/F) into celcius so we can put it into function
+    { 
+        case 1: 
+            categorize(temp); //this will categorize the temperature and give weather aadvisory 
+            break; //we do nothing since we are aledy in Kelvin
+        case 2:
+            temp=k2c(temp);  
+            categorize(temp); 
+            temp=c2k(temp); //converts back so we dont mess up values 
             break; 
-        }
-        else
-        {
-            comb(score); //function call to find all combinations 
-        }
-        
-        // int* array; //pointer to array that will hold values for score combos 
-        // array=comb(score); //passes score so that comb can find all combinations 
-        // free(array); //frees space that array was allocating so that we dont cause memory leak 
+        case 3: 
+            temp=f2c(temp); 
+            categorize(temp); 
+            temp=c2f(temp); 
+            break; 
+        default: //if nothing else mathces to the variable given (like the last else statement)
+            printf("you gave bad input when we asked Celcius, kelvin or farenheight\n");
+    }
+
+    if ((tempType==1 && tempConvert==1) || (tempType==2 && tempConvert==2) || (tempType==3 && tempConvert==3)) //if the user wants to convert to temp they are already in... 
+    {
+        printf("you are trying to convert to the temparture type you are already in"); //..tell them that they are already in that type 
+    }
+    else if (tempType==1 && tempConvert==2) //if in C converting to K 
+    {
+        printf("converted temperature %f", c2k(temp)); //call appropriate function 
+    }
+    else if (tempType==1 && tempConvert==3) //if in C converting to F 
+    {
+        printf("converted temperature %f", c2f(temp)); 
+    }
+    else if (tempType==2 && tempConvert==1) //if in K convering to C 
+    {
+        printf("converted temperature %f", k2c(temp)); 
+    }
+    else if (tempType==2 && tempConvert==3) //if in K convering to F 
+    {
+        float a=k2c(temp); //call functions to convert twice 
+        a=c2f(a); 
+        printf("converted temperature %f", a); 
+    }
+    else if (tempType==3 && tempConvert==1) //if in F convering to C 
+    {
+        printf("converted temperature %f", f2c(temp)); 
+    }
+    else if (tempType==3 && tempConvert==2) //if in F convereing to K 
+    {
+        float b=f2c(temp); 
+        b=c2k(b); 
+        printf("converted temperature %f", b); 
     }
 
     return 0; 

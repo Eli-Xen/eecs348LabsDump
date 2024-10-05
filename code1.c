@@ -1,56 +1,53 @@
 // Author: Eliza Malyshev 
 // KUID: 3122318
 // Date: 10/3/2024 
-// Lab: #5.2
-// Purpose: display different weather warnings based on temperature 
+// Lab: #4.1
+// Purpose: find NFL scoring combinations using C
 
 #include <stdio.h>
+
+int comb(int score) //this function will try all combinations and will print the combinations that equal the score 
+{
+    int td2, td1, td, fg, sfty; //initializes varibles for touchdown+2/+1+0, feild goal and saftey 
+    printf("combinations of scoring %d\n", score); 
+    for (td2=0; td2*8<=score; td2++) //this will add 8*i every time it loops until it surpasses the score 
+    {
+        for (td1=0; (td2*8+td1*7)<=score; td1++) //not it does 8*i+7*j so that every time it loops it tries adding different incriments 
+        {
+            for (td=0; (td2*8+td1*7+td*6)<=score; td++) //we keep adding other types of goals with thier point amounts...
+            {
+                for (fg=0; (td2*8+td1*7+td*6+fg*3)<=score; fg++) //...so that each is incrimented by the loop they are at...
+                {
+                    for (sfty=0; (td2*8+td1*7+td*6+fg*3+sfty*2)<=score; sfty++) //...until the addition of all the incriments surpasses or equals the score 
+                    {
+                        if ((td2*8+td1*7+td*6+fg*3+sfty*2)==score) //if this combination equals the score then print it 
+                        {
+                            printf("%d TD+2pt, %d TD+FG, %d TD, %d FG 3pt, %d Saftey 2pt\n", td2, td1, td, fg, sfty); 
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 int main()
 {
-    int temp; 
-    int tempType; 
-    printf("1 celcius \n2 kelvin \n3 farenheight\ninput an integer for coresponding tempterature: ");
-    scanf("%d", &tempType);
-    printf("give temp as integer: "); 
-    scanf("%d", &temp); //saves to address of temparture variable 
-    switch(tempType) //like if-else statment except it just finds what the variable given is equal to 
-    { //this converts whatevery they gave us (C/K/F) into celcius 
-        case 1: 
-            temp=temp; 
-            break; //we do nothing since we are aledy in Kelvin
-        case 2:
-            temp=temp-273.15; 
+    int score; 
+    while(1)
+    {
+        printf("enter 1 or 0 to stop\n"); 
+        printf("enter NFL score integer: ");
+        scanf("%d", &score); //saves score to address of variable 
+        if(score<=1)
+        {
             break; 
-        case 3: 
-            temp=(temp-32)*(5.0/9.0); //(°F - 32) × 5/9 formula to convert farenheight to celcius 
-            break; 
-        default: //if nothing else mathces to the variable given (like the last else statement)
-            printf("you gave bad input when we asked Celcius, kelvin or farenheight\n");
-    }
+        }
+        else
+        {
+            comb(score); //function call to find all combinations 
+        }
 
-    if(temp<0)
-    {
-        printf("freezing:wear a thick jacket if you go out");
-    }
-    else if(temp>=0 && temp<10) //has to be seperate statments or else it just reads that num>=10000 is 0 or 1 and compares that to 26000 (if dont 10000<=num<26000)
-    {  
-        printf("cold: wear a sweater or long sleeves ");
-    }
-    else if(temp>=10 && temp<25)
-    {  
-        printf("comfortable: its good weather out ");
-    }
-    else if(temp>=25 && temp<35)
-    {  
-        printf("hot: wear short sleeves and sunscreen");
-    }
-    else if(temp>=35)
-    {  
-        printf("extreme heat: avoid going outdoors ");
-    }
-    else
-    {
-        printf("invalid input");
     }
 
     return 0; 
