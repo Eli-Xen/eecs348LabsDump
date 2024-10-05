@@ -1,7 +1,7 @@
 // Author: Eliza Malyshev 
 // KUID: 3122318
 // Date: 10/3/2024 
-// Lab: #5.1
+// Lab: #4.1
 // Purpose: find NFL scoring combinations using C
 
 #include <stdio.h>
