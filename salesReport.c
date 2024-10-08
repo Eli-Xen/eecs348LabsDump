@@ -48,20 +48,49 @@ int summary(float sales[])
     printf("minimum sale in month %d: %f", minMonth, min); 
     printf("maximum sale in mont %d: %f", maxMonth, max); 
     printf("average sale: %f", avg/12); //divdies by 12 to get average
+    return 0; 
 }
 
-// int sixMonth(float sales[])
-// {
+int sixMonth(float sales[]) //this function calcualtes and prints the 6-month average over a given time period 
+{
+    for (int i=0; i<6; i++) //calls supporting function with parameters being the low and high range of 6 month period 
+    {  
+        int j=i+5;  //end of 6 month period 
+        printf("average for months %d-%d: %f\n", i+1, j+1, sixAvg(i, j, sales));  //loop start at 0,6 1,7 2,8
+    }
+    return 0; 
+}
 
-        // sixAvg(start,stop,sales[]); 
-// }
-// int sixAvg(int start, int stop, float sales[]) //supporting function that gets average between two specified indecies 
-// {
-//     for (int i=0; i<6; i++)
-//     {
+float sixAvg(int start, int stop, float sales[]) //supporting function that gets average between two specified indecies 
+{
+    float avg=0; 
+    for (int i=start; i<=stop; i++)
+    {
+        avg+=sales[i%12]; //use mod for when i gets greater than 12 
+    }
+    return avg/6; //returns total/6 to give average 
+}
 
-//     }
-// }
+int high2low(float sales[]) //prints values in array from high to low 
+{
+    for (int i=0; i<12-1; i++) //bubble sort that organizes array high to low 
+    {
+        for (int j=0; j<12-i-1; j++) 
+        {
+            if (sales[j]<sales[j+1]) //sorts decsending order 
+            {
+                float temp = sales[j];
+                sales[j] = sales[j + 1];
+                sales[j + 1] = temp;
+            }
+        }
+    }
+    for (int i=0; i<12; i++)
+    {
+        printf("month %d: %f", i+1, sales[i]); 
+    }
+}
+
 
 int main()
 {
@@ -77,10 +106,10 @@ int main()
         fscanf(file, "%f", &sales[i]); 
     }
 
-    monthySales(sales); //function call that will print all the sales for each month 
+    monthlySales(sales); //function call that will print all the sales for each month 
     summary(sales); //function that will show the minimum, maximum, and average sales
-    // sixMonth(sales); //shows what average is for each 6-month period 
-    // high2low(sales); //shows sales highest to lowest 
+    sixMonth(sales); //shows what average is for each 6-month period 
+    high2low(sales); //shows sales highest to lowest 
     fclose(file); 
     return 0; 
 
