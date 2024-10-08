@@ -4,7 +4,7 @@
 // Lab: #5.1
 // Purpose: process file IO and print data using arrays 
 #include <stdio.h>
-int monthlySales(float sales[]) 
+int monthlySales(float sales[]) //this function will print all the sales for each month 
 {
     printf("\nMONTHLY SALES REPORT:\n");
     printf("january: \t %f\n", sales[0]); 
@@ -23,7 +23,7 @@ int monthlySales(float sales[])
 
 }
 
-int summary(float sales[])
+int summary(float sales[]) //this function find the max,min, and avg of all sales from array and prints them 
 {
     float min=sales[0], max=sales[0], avg=0; 
     int minMonth=1, maxMonth=1; 
