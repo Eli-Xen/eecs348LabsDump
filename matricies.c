@@ -32,6 +32,24 @@ int printMx(int m1[], int m2[])
 
 int main()
 {
+    int m1[SIZE][SIZE]; 
+    int m2[SIZE][SIZE]; 
+    for (int i=0; i<SIZE; i++)
+    {
+        int temp[SIZE]; 
+        printf("give row %d of matrix, with each integer seperated by spaces: ", i+1); 
+        for (int j=0; j<SIZE; j++) //will read each int seperatley becuase white space seperates them 
+        {
+            scanf("%d", &temp[j]); 
+        }
+    }
+    
+    
 
-    return 0;    
+//     printf("array: ");
+//     for (int i=0; i<SIZE; i++) 
+//     {
+//         printf("%d ", temp[i]);
+//     }
+//     return 0;    
 }
