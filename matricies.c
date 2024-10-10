@@ -26,7 +26,26 @@ int transMx(int m1[], int m2[])
 
 int printMx(int m1[], int m2[])
 {
-
+    printf("matrix 1 looks like:\n"); //prints 2D array in pretty format 
+    for (int i=0; i<SIZE; i++) 
+    {
+        printf("|");
+        for (int j=0; j<SIZE; j++) 
+        {
+            printf("%d ", m1[i][j]);
+        }
+        printf("|\n");
+    }  
+    printf("matrix 2 looks like:\n"); //prints 2D array in pretty format 
+    for (int i=0; i<SIZE; i++) 
+    {
+        printf("|");
+        for (int j=0; j<SIZE; j++) 
+        {
+            printf("%d ", m2[i][j]);
+        }
+        printf("|\n");
+    }  
     return 0;    
 }
 
@@ -44,14 +63,4 @@ int main()
 
     }
     
-    printf("The resulting 2D matrix is:\n"); //prints 2D array in pretty format 
-    for (int i=0; i<SIZE; i++) 
-    {
-        printf("|");
-        for (int j=0; j<SIZE; j++) 
-        {
-            printf("%d ", m1[i][j]);
-        }
-        printf("|\n");
-    }  
 }
