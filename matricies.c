@@ -16,7 +16,6 @@ int (*addMx(int m1[SIZE][SIZE], int m2[SIZE][SIZE]))[SIZE] //this declaration wi
         {
             added[i][j]=m1[i][j]+m2[i][j]; //add corresponding entries and put them into added array 
         }
-        printf("|\n");
     }  
     return added; //returns pointer to added matrix 
 }
@@ -38,37 +37,34 @@ int (*multMx(int m1[SIZE][SIZE], int m2[SIZE][SIZE]))[SIZE] //function that a po
     return mult; //returns pointer to multiplied matrix 
 }
 
-int (*transMx(int m1[SIZE][SIZE], int m2[SIZE][SIZE]))[SIZE]
+int (*transMx(int m[SIZE][SIZE]))[SIZE]
 {
     static int trans[SIZE][SIZE]; 
-
+    for (int i=0; i<SIZE; i++) 
+    {
+        int temp[SIZE]; //temporary row where we will put transposed elements 
+        for (int j=0; j<SIZE; j++) 
+        {
+            trans[j][i]=m[i][j];
+        }
+    }  
     return trans; //returns pointer to transpose matrix    
 }
 
-int printMx(int m1[SIZE][SIZE], int m2[SIZE][SIZE])
+int printMx(int (*m)[SIZE]) //takes pointer to matrix as parameter 
 {
-    printf("matrix 1 looks like:\n"); //prints 2D array in pretty format 
     for (int i=0; i<SIZE; i++) 
     {
         printf("|");
         for (int j=0; j<SIZE; j++) 
         {
-            printf("%d ", m1[i][j]);
-        }
-        printf("|\n");
-    }  
-    printf("matrix 2 looks like:\n"); //prints 2D array in pretty format 
-    for (int i=0; i<SIZE; i++) 
-    {
-        printf("|");
-        for (int j=0; j<SIZE; j++) 
-        {
-            printf("%d ", m2[i][j]);
+            printf("%d ", m[i][j]);
         }
         printf("|\n");
     }  
     return 0;    
 }
+
 
 int main()
 {
@@ -85,12 +81,6 @@ int main()
     }
 
     int (*added)[SIZE]=addMx(m1, m2); //uses function pointer to call function and take return of pointer 
-    printf("added matrix:\n");
-    for (int i=0; i<SIZE; i++) {
-        for (int j=0; j<SIZE; j++) {
-            printf("%d ", added[i][j]);
-        }
-        printf("\n");
-    }
+    printMx(added); //pass pointer of matrix to be printed 
 
 }
