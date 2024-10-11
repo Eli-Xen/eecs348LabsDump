@@ -6,25 +6,34 @@
 #include <stdio.h> 
 #define SIZE 5 
 
-int addMx(int m1[], int m2[])
+int (*addMx(int m1[SIZE][SIZE], int m2[SIZE][SIZE]))[SIZE] //this declaration will return a pointer of SIZE; add corresponding entries of two matricies and return matrix of added matricies 
 {
-    
+    static int added[SIZE][SIZE]; 
+    printf("matrix 1 looks like:\n"); //prints 2D array in pretty format 
+    for (int i=0; i<SIZE; i++) 
+    {
+        for (int j=0; j<SIZE; j++) 
+        {
+            added[i][j]=m1[i][j]+m2[i][j]; //add corresponding entries and put them into added array 
+        }
+        printf("|\n");
+    }  
+    return added; //returns pointer to added matrix 
+}
+
+int multMx(int m1[SIZE][SIZE], int m2[SIZE][SIZE])
+{
+
     return 0;    
 }
 
-int multMx(int m1[], int m2[])
+int transMx(int m1[SIZE][SIZE], int m2[SIZE][SIZE])
 {
 
     return 0;    
 }
 
-int transMx(int m1[], int m2[])
-{
-
-    return 0;    
-}
-
-int printMx(int m1[], int m2[])
+int printMx(int m1[SIZE][SIZE], int m2[SIZE][SIZE])
 {
     printf("matrix 1 looks like:\n"); //prints 2D array in pretty format 
     for (int i=0; i<SIZE; i++) 
@@ -62,5 +71,14 @@ int main()
         }
 
     }
-    
+
+    int (*added)[SIZE]=addMx(m1, m2); //uses function pointer to call function and take return of pointer 
+    printf("added matrix:\n");
+    for (int i=0; i<SIZE; i++) {
+        for (int j=0; j<SIZE; j++) {
+            printf("%d ", added[i][j]);
+        }
+        printf("\n");
+    }
+
 }
