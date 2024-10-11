@@ -4,7 +4,7 @@
 // Lab: #5.2
 // Purpose: make and manipulate 2D arrays 
 #include <stdio.h> 
-#define SIZE 5 
+#define SIZE 5 //this makes so that every time SIZE is used its always 5, like global variable kinda 
 
 int (*addMx(int m1[SIZE][SIZE], int m2[SIZE][SIZE]))[SIZE] //this declaration will return a pointer of SIZE; add corresponding entries of two matricies and return matrix of added matricies 
 {
@@ -21,16 +21,28 @@ int (*addMx(int m1[SIZE][SIZE], int m2[SIZE][SIZE]))[SIZE] //this declaration wi
     return added; //returns pointer to added matrix 
 }
 
-int multMx(int m1[SIZE][SIZE], int m2[SIZE][SIZE])
+int (*multMx(int m1[SIZE][SIZE], int m2[SIZE][SIZE]))[SIZE] //function that a pointer is pointing to that returns a pointer to multiplied matrix 
 {
+    static int mult[SIZE][SIZE]; 
+    for (int i=0; i<SIZE; i++)
+    {
+        for (int j=0; j<SIZE; j++)
+        {
+            for (int k=0; k<SIZE; k++) //dot product of the i row of m1 and j column of m2; goes through k times
+            {
+                mult[i][j]+=m1[i][k]*m2[k][j]; //keeps adding result for each k iteration as it goes through k row and k column in common 
+            }
+        }
+    }
 
-    return 0;    
+    return mult; //returns pointer to multiplied matrix 
 }
 
-int transMx(int m1[SIZE][SIZE], int m2[SIZE][SIZE])
+int (*transMx(int m1[SIZE][SIZE], int m2[SIZE][SIZE]))[SIZE]
 {
+    static int trans[SIZE][SIZE]; 
 
-    return 0;    
+    return trans; //returns pointer to transpose matrix    
 }
 
 int printMx(int m1[SIZE][SIZE], int m2[SIZE][SIZE])
