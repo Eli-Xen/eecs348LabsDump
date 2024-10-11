@@ -27,9 +27,12 @@ int (*multMx(int m1[SIZE][SIZE], int m2[SIZE][SIZE]))[SIZE] //function that a po
     {
         for (int j=0; j<SIZE; j++)
         {
+            mult[i][j]=0; //initlize to 0 to clear garbage values 
             for (int k=0; k<SIZE; k++) //dot product of the i row of m1 and j column of m2; goes through k times
             {
+                printf("we are current at k %d\n", k); 
                 mult[i][j]+=m1[i][k]*m2[k][j]; //keeps adding result for each k iteration as it goes through k row and k column in common 
+                printf("mult[%d][%d] += m1[%d][%d] * m2[%d][%d] --> mult[%d][%d] = %d\n", i, j, i, k, k, j, i, j, mult[i][j]);
             }
         }
     }
