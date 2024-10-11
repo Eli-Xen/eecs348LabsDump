@@ -30,9 +30,9 @@ int (*multMx(int m1[SIZE][SIZE], int m2[SIZE][SIZE]))[SIZE] //function that a po
             mult[i][j]=0; //initlize to 0 to clear garbage values 
             for (int k=0; k<SIZE; k++) //dot product of the i row of m1 and j column of m2; goes through k times
             {
-                printf("we are current at k %d\n", k); 
+                // printf("we are current at k %d\n", k); 
                 mult[i][j]+=m1[i][k]*m2[k][j]; //keeps adding result for each k iteration as it goes through k row and k column in common 
-                printf("mult[%d][%d] += m1[%d][%d] * m2[%d][%d] --> mult[%d][%d] = %d\n", i, j, i, k, k, j, i, j, mult[i][j]);
+                // printf("mult[%d][%d] += m1[%d][%d] * m2[%d][%d] --> mult[%d][%d] = %d\n", i, j, i, k, k, j, i, j, mult[i][j]);
             }
         }
     }
@@ -93,10 +93,29 @@ int main()
 
     }
 
-    // int (*added)[SIZE]=addMx(m1, m2); //uses function pointer to call function and take return of pointer 
-    // printf("matricies added together look like: \n"); 
-    // printMx(added); //pass pointer of matrix to be printed 
+    //print each matrix  in pretty format 
+    printf("matrix 1 looks like: \n"); 
+    printMx(m1); 
+    printf("matrix 2 looks like: \n"); 
+    printMx(m2);
+
+    //show adding of matricies 
+    int (*added)[SIZE]=addMx(m1, m2); //makes a pointer that will point to result of return pointer 
+    printf("matricies added together look like: \n"); 
+    printMx(added); //pass pointer of matrix to be printed 
+    
+    //show multiplication of matricies 
     printf("matricies multiplied together look like: \n"); 
     int (*multiplied)[SIZE]=multMx(m1, m2); 
     printMx(multiplied); 
+
+    //show transpose of matricies 
+    printf("matrix 1 transpose looks like: \n"); 
+    int (*transpose1)[SIZE]=transMx(m1); 
+    printMx(transpose1); 
+    printf("matrix 2 transpose looks like: \n"); 
+    int (*transpose2)[SIZE]=transMx(m2); 
+    printMx(transpose2); 
+
+    return 0; 
 }
