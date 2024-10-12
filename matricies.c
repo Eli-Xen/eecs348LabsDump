@@ -76,11 +76,15 @@ int main()
     for (int i=0; i<SIZE; i++) //goes through each row of matrix 1... 
     {
         printf("give row %d of matrix 1, with each integer seperated by spaces: ", i+1); 
+
         for (int j=0; j<SIZE; j++) //...and for every column...
         {
-            scanf("%d", &m1[i][j]); //...read each int seperatley becuase white space seperates them 
+            while (scanf("%d", &m1[i][j])!=1)  //checks if valid input; user input has to be able to be scanned as int otherwise gives error 
+            {
+                printf("invalid input, re-enter row %d of matrix 1 with ints separated by spaces: ", i+1);  // **Change**: Prompt re-entry if invalid input
+                while (getchar()!='\n'); //this has to be here to clear input so we can scan again 
+            }
         }
-
     }
     printf("\n"); 
     for (int i=0; i<SIZE; i++) //goes through each row of matrix 2... 
@@ -88,7 +92,11 @@ int main()
         printf("give row %d of matrix 2, with each integer seperated by spaces: ", i+1); 
         for (int j=0; j<SIZE; j++) //...and for every column...
         {
-            scanf("%d", &m2[i][j]); //...read each int seperatley becuase white space seperates them 
+           while (scanf("%d", &m2[i][j])!=1)  //checks if valid input; user input has to be able to be scanned as int otherwise gives error 
+            {
+                printf("invalid input, re-enter row %d of matrix 2 with ints separated by spaces: ", i+1);  // **Change**: Prompt re-entry if invalid input
+                while (getchar()!='\n'); //this has to be here to clear input so we can scan again 
+            }
         }
 
     }
