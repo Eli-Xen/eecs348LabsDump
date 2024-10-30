@@ -1,5 +1,3 @@
-
-
 function change_color() {
   var paraR = document.getElementById("paragraph_R").value;
   var paraG = document.getElementById("paragraph_G").value;
