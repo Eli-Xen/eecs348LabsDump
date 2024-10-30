@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-here is your table: 
+here is the table: 
 
 <?php
 $size=(int)$_POST['size']; //takes in value for size from html that calls it
