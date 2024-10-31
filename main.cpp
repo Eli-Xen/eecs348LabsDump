@@ -73,25 +73,100 @@ void print_matrix(const Matrix& matrix_1, const Matrix& matrix_2) {
 
 Matrix add_matrices(const Matrix& matrix_1, const Matrix& matrix_2) {
     // TODO: Implement matrix addition
+    Matrix addedMat(matrix_1.matrix_size);
+    for (int i=0; i<matrix_1.matrix_size; i++) //read each line of file into first matrix
+    {
+        for (int j=0; j<matrix_1.matrix_size; j++) //read each elemnt of each line into matrix properly 
+        {addedMat.matrix_data[i][j]=matrix_1.matrix_data[i][j]+matrix_2.matrix_data[i][j];}
+    }
+    return addedMat; 
 }
 
 Matrix multiply_matrices(const Matrix& matrix_1, const Matrix& matrix_2) {
     // TODO: Implement matrix multiplication
+    Matrix multMat(matrix_1.matrix_size);
+    for (int i=0; i<matrix_1.matrix_size; i++)
+    {
+        for (int j=0; j<matrix_1.matrix_size; j++)
+        {
+            for (int k=0; k<matrix_1.matrix_size; k++) //dot product of the i row of m1 and j column of m2; goes through k times
+            {
+                multMat.matrix_data[i][j]+=matrix_1.matrix_data[i][k]*matrix_2.matrix_data[k][j]; //keeps adding result for each k iteration as it goes through k row and k column in common 
+            }
+        }
+    }
+
+    return multMat; 
 }
 
 // Overloaded + operator for matrix addition
-Matrix operator+(const Matrix& matrix_1, const Matrix& matrix_2);
+Matrix operator+(const Matrix& matrix_1, const Matrix& matrix_2) //can i just do a function call here to matrix adder or do i redefine evrything?
+{
+    Matrix addedOvrld(matrix_1.matrix_size); //initilize new result matrix
+    for (int i=0; i<matrix_1.matrix_size; i++) 
+    {
+        for (int j=0; j<matrix_1.matrix_size; j++) 
+        {addedOvrld.matrix_data[i][j]=matrix_1.matrix_data[i][j]+matrix_2.matrix_data[i][j];}
+    }
+    return addedOvrld; 
+}
 
 // Overloaded * operator for matrix multiplication
-Matrix operator*(const Matrix& matrix_1, const Matrix& matrix_2);
+Matrix operator*(const Matrix& matrix_1, const Matrix& matrix_2)
+{
+    Matrix multOvrld(matrix_1.matrix_size);
+    for (int i=0; i<matrix_1.matrix_size; i++)
+    {
+        for (int j=0; j<matrix_1.matrix_size; j++)
+        {
+            for (int k=0; k<matrix_1.matrix_size; k++) //dot product of the i row of m1 and j column of m2; goes through k times
+            {
+                multOvrld.matrix_data[i][j]+=matrix_1.matrix_data[i][k]*matrix_2.matrix_data[k][j]; //keeps adding result for each k iteration as it goes through k row and k column in common 
+            }
+        }
+    }
+
+    return multOvrld; 
+}
 
 void get_diagonal_sum(const Matrix& matrix) {
-    // TODO: Calculate and print the sum of the diagonal elements
+    // TODO: Calculate and print the sum of the diagonal elements 
+    int diag1=0, diag2=0; 
+    for (int i=0; i<matrix.matrix_size; i++)
+    {
+        for (int j=0; j<matrix.matrix_size; j++)
+        {
+            if (i==j)
+            {diag1+=matrix.matrix_data[i][j];}
+            
+        }
+    }
+    int counter=matrix.matrix_size-1; 
+    for (int i=0; i<matrix.matrix_size; i++)
+    {
+        for (int j=0; j<matrix.matrix_size; j++)
+        {
+            if (j==counter)
+            {diag2+=matrix.matrix_data[i][j]; counter--;}
+        }
+    }
+    cout << "sum of main diagonal: " << diag1 << endl; 
+    cout << "sum of seconday diagonal: " << diag2 << endl;
 }
 
 void swap_matrix_row(Matrix& matrix, int row1, int row2) {
     // TODO: Swap the rows 'row1' and 'row2' in the matrix
-    //    Handle invalid row indices
+    //    Handle invalid row indices]
+    if (row1<0 || row1>matrix.matrix_size || row2<0 || row2>matrix.matrix_size)
+    {cout << "invalid row indecies, please make another call to swap function with valid indecies" << endl;}
+    // Matrix swap(matrix.matrix_size); //initilizes new Matrix object to store result and return 
+    for (int j=0; j<matrix.matrix_size; j++) //takes each column and swaps it between row1 and row2
+    {
+        int temp=matrix.matrix_data[row1][j]; 
+        matrix.matrix_data[row1][j]=matrix.matrix_data[row2][j]; 
+        matrix.matrix_data[row2][j]=temp; 
+    }
+    // return swap; //shouldnt return anything since we are changing the original matrix 
 }
 
 int main(int argc, char* argv[]) {
@@ -102,22 +177,31 @@ int main(int argc, char* argv[]) {
     print_matrix(matrix_1, matrix_2);
 
     // cout << "add_matrices result:" << endl;
-    // Matrix add_result_1 = add_matrices(matrix_1, matrix_2);
-    // Matrix add_result_2 = matrix_1 + matrix_2;
-    // print_matrix(add_result_1);
-    // print_matrix(add_result_2);
+    Matrix add_result_1 = add_matrices(matrix_1, matrix_2);
+    Matrix add_result_2 = matrix_1 + matrix_2;
+    cout << endl; 
+    cout << "add_matrices function result:" << endl;
+    print_matrix(add_result_1);
+    cout << "+ operator overload result:" << endl;
+    print_matrix(add_result_2);
 
+    cout << endl; 
     // cout << "multiply_matrices result:" << endl;
-    // Matrix multiply_result_1 = multiply_matrices(matrix_1, matrix_2);
-    // Matrix multiply_result_2 = matrix_1 * matrix_2;
-    // print_matrix(multiply_result_1);
-    // print_matrix(multiply_result_2);
+    Matrix multiply_result_1 = multiply_matrices(matrix_1, matrix_2);
+    Matrix multiply_result_2 = matrix_1 * matrix_2;
+    cout << "add_matrices function result:" << endl;
+    print_matrix(multiply_result_1);
+    cout << "* operator overload result:" << endl;
+    print_matrix(multiply_result_2);
 
-    // cout << "get matrix diagonal sum" << endl;
-    // get_diagonal_sum(matrix_1);
+    cout << endl; 
+    // cout << "get matrix diagonal sum: " << endl;
+    get_diagonal_sum(matrix_1);
 
-    // cout << "swap matrix rows" << endl;
-    // swap_matrix_row(matrix_1, 0, 1);
+    cout << endl; 
+    cout << "swap matrix_1 rows: " << endl;
+    swap_matrix_row(matrix_1, 0, 1);
+    print_matrix(matrix_1);
 
     return 0;
 }
